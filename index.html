@@ -488,7 +488,7 @@
             display: flex;
             justify-content: center;
             gap: 12px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
         
         .tab-btn {
@@ -509,7 +509,7 @@
             color: #ffffff;
         }
 
-        /* Слайдер */
+        /* Слайдер — показ по 2 фото */
         .tabs-content {
             display: none;
             animation: fadeIn 0.5s ease;
@@ -529,11 +529,12 @@
         .slider-track {
             display: flex;
             transition: transform 0.5s ease;
+            gap: 12px;
         }
 
         .slider-slide {
-            min-width: 100%;
-            padding: 0 8px;
+            min-width: calc(50% - 6px);
+            flex-shrink: 0;
         }
 
         .dress-photo {
@@ -570,13 +571,6 @@
         .slide-arrow:hover {
             background: #2d4c3e;
             color: #fff;
-        }
-
-        .slide-counter {
-            font-family: 'Inter', sans-serif;
-            font-size: 12px;
-            color: #888;
-            align-self: center;
         }
 
         @keyframes fadeIn {
@@ -961,7 +955,7 @@
         </div>
     </section>
 
-    <!-- СЕКЦИЯ 7: ДРЕСС-КОД С ПЕРЕКЛЮЧАТЕЛЕМ И СЛАЙДЕРАМИ -->
+    <!-- СЕКЦИЯ 7: ДРЕСС-КОД — СЛАЙДЕР ПО 2 ФОТО -->
     <section class="reveal" style="background: #fcfcfc;">
         <h2 class="serif-title">Дресс-код</h2>
         <p class="serif-subtitle">dress-code</p>
@@ -978,13 +972,13 @@
             <div class="dress-sample-square" style="background-image: url('4.jpg');"></div>
         </div>
 
-        <!-- Переключатель образов -->
+        <!-- Переключатель -->
         <div class="tabs-nav">
             <button class="tab-btn active" onclick="openTab(event, 'for-her')">ДЛЯ НЕЁ</button>
             <button class="tab-btn" onclick="openTab(event, 'for-him')">ДЛЯ НЕГО</button>
         </div>
 
-        <!-- Слайдер: Для неё -->
+        <!-- Слайдер: Для неё (4 фото, показ по 2) -->
         <div id="for-her" class="tabs-content active">
             <div class="slider-wrapper">
                 <div class="slider-track" id="sliderHer">
@@ -994,14 +988,13 @@
                     <div class="slider-slide"><div class="dress-photo" style="background-image: url('платье4.jpg');"></div></div>
                 </div>
                 <div class="slide-controls">
-                    <button class="slide-arrow" onclick="moveSlide('her', -1)">← Назад</button>
-                    <span class="slide-counter"><span id="herCurrent">1</span>/4</span>
-                    <button class="slide-arrow" onclick="moveSlide('her', 1)">Далее →</button>
+                    <button class="slide-arrow" onclick="moveSlide('her', -2)">← Назад</button>
+                    <button class="slide-arrow" onclick="moveSlide('her', 2)">Далее →</button>
                 </div>
             </div>
         </div>
 
-        <!-- Слайдер: Для него -->
+        <!-- Слайдер: Для него (4 фото, показ по 2) -->
         <div id="for-him" class="tabs-content">
             <div class="slider-wrapper">
                 <div class="slider-track" id="sliderHim">
@@ -1011,9 +1004,8 @@
                     <div class="slider-slide"><div class="dress-photo" style="background-image: url('костюм4.jpg');"></div></div>
                 </div>
                 <div class="slide-controls">
-                    <button class="slide-arrow" onclick="moveSlide('him', -1)">← Назад</button>
-                    <span class="slide-counter"><span id="himCurrent">1</span>/4</span>
-                    <button class="slide-arrow" onclick="moveSlide('him', 1)">Далее →</button>
+                    <button class="slide-arrow" onclick="moveSlide('him', -2)">← Назад</button>
+                    <button class="slide-arrow" onclick="moveSlide('him', 2)">Далее →</button>
                 </div>
             </div>
         </div>
@@ -1156,20 +1148,20 @@
             evt.currentTarget.classList.add("active");
         }
 
-        // Слайдер
+        // Слайдер: по 2 фото
         var slides = { her: 0, him: 0 };
 
         function moveSlide(gender, direction) {
             var track = document.getElementById('slider' + (gender === 'her' ? 'Her' : 'Him'));
-            var currentEl = document.getElementById(gender + 'Current');
             var totalSlides = 4;
+            var maxIndex = totalSlides - 2; // 2 последних не показываем отдельно
 
             slides[gender] += direction;
             if (slides[gender] < 0) slides[gender] = 0;
-            if (slides[gender] >= totalSlides) slides[gender] = totalSlides - 1;
+            if (slides[gender] > maxIndex) slides[gender] = maxIndex;
 
-            track.style.transform = 'translateX(-' + (slides[gender] * 100) + '%)';
-            currentEl.textContent = slides[gender] + 1;
+            var slideWidth = track.querySelector('.slider-slide').offsetWidth + 12; // 12 = gap
+            track.style.transform = 'translateX(-' + (slides[gender] * slideWidth) + 'px)';
         }
 
         // Таймер
