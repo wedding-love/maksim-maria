@@ -175,30 +175,6 @@
             letter-spacing: 8px;
             margin: 26px 0 32px;
         }
-        
-        .play-btn {
-            background: none;
-            border: 2px solid #2d4c3e; 
-            padding: 16px 32px; 
-            cursor: pointer; 
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-            letter-spacing: 4px; 
-            font-size: 14px;
-            color: #2d4c3e;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-        
-        .play-btn:hover {
-            background: #2d4c3e;
-            color: #fff;
-        }
-        
-        .play-btn.playing {
-            background: #2d4c3e;
-            color: #fff;
-        }
 
         /* ===== СЕКЦИЯ 2: ПРИГЛАШЕНИЕ ===== */
         .invitation-text {
@@ -294,7 +270,6 @@
             margin-bottom: 24px;
         }
         
-        /* Новый стиль для блока скидки — приглушённый, под цвет адреса */
         .discount-badge {
             background-color: transparent;
             border: 1px solid rgba(45, 76, 62, 0.2);
@@ -339,7 +314,7 @@
             margin-right: 10px;
         }
 
-        /* ===== СЕКЦИЯ 5: ТАЙМИНГ (ШРИФТ УВЕЛИЧЕН) ===== */
+        /* ===== СЕКЦИЯ 5: ТАЙМИНГ ===== */
         .timeline { 
             position: relative; 
             padding: 22px 0; 
@@ -383,7 +358,7 @@
         .t-time { 
             font-family: 'Cormorant Garamond', serif;
             font-weight: 400;
-            font-size: 28px; /* УВЕЛИЧЕНО с 24px */
+            font-size: 28px;
             color: #2d4c3e; 
             display: block;
             letter-spacing: 3px;
@@ -394,7 +369,7 @@
             font-family: 'Cormorant Garamond', serif; 
             font-style: italic;
             font-weight: 300;
-            font-size: 22px; /* УВЕЛИЧЕНО с 19px */
+            font-size: 22px;
             line-height: 1.3;
         }
         
@@ -491,7 +466,6 @@
             text-transform: uppercase;
         }
 
-        /* 4 квадрата в линию */
         .dress-samples-row {
             display: flex;
             gap: 12px;
@@ -510,12 +484,11 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.04);
         }
         
-        /* Переключатель */
         .tabs-nav {
             display: flex;
             justify-content: center;
             gap: 12px;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
         }
         
         .tab-btn {
@@ -536,16 +509,31 @@
             color: #ffffff;
         }
 
-        /* Сетка с фотографиями */
+        /* Слайдер */
         .tabs-content {
             display: none;
             animation: fadeIn 0.5s ease;
         }
         
         .tabs-content.active {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            display: block;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            overflow: hidden;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slider-slide {
+            min-width: 100%;
+            padding: 0 8px;
         }
 
         .dress-photo {
@@ -558,13 +546,37 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.05);
         }
 
-        .dress-desc {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-weight: 300;
-            font-size: 16px;
-            margin-top: 10px;
+        .slide-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .slide-arrow {
+            background: none;
+            border: 1px solid #2d4c3e;
+            color: #2d4c3e;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 12px;
+            letter-spacing: 2px;
+            padding: 8px 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slide-arrow:hover {
+            background: #2d4c3e;
+            color: #fff;
+        }
+
+        .slide-counter {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
             color: #888;
+            align-self: center;
         }
 
         @keyframes fadeIn {
@@ -738,14 +750,13 @@
             .serif-title-white { font-size: 25px; letter-spacing: 3px; }
             .serif-subtitle { font-size: 17px; margin-bottom: 25px; }
             .warm-text { font-size: 18px; }
-            .t-time { font-size: 24px; } /* адаптив */
-            .t-event { font-size: 18px; } /* адаптив */
+            .t-time { font-size: 24px; }
+            .t-event { font-size: 18px; }
             .t-desc { font-size: 11px; }
             .timeline-item { margin-bottom: 30px; }
             .dress-samples-row { gap: 8px; }
             .tab-btn { padding: 10px 20px; font-size: 12px; }
             .dress-photo { aspect-ratio: 2/3; }
-            .dress-desc { font-size: 14px; }
             .form-container { padding: 24px 16px; }
             .form-label { font-size: 18px; }
             .form-input, .form-select, .form-textarea { font-size: 15px; padding: 12px 14px; }
@@ -766,13 +777,12 @@
             .invitation-highlight { font-size: 20px; }
             .serif-title { font-size: 24px; }
             .serif-title-white { font-size: 22px; }
-            .t-time { font-size: 22px; } /* адаптив */
-            .t-event { font-size: 16px; } /* адаптив */
+            .t-time { font-size: 22px; }
+            .t-event { font-size: 16px; }
             .t-desc { font-size: 10px; }
             .timeline-item { margin-bottom: 26px; }
             .dress-samples-row { gap: 6px; }
             .tab-btn { padding: 9px 16px; font-size: 11px; }
-            .dress-desc { font-size: 13px; }
             .form-container { padding: 20px 14px; }
             .form-label { font-size: 16px; }
             .form-input, .form-select, .form-textarea { font-size: 14px; padding: 10px 12px; margin-bottom: 20px; }
@@ -951,7 +961,7 @@
         </div>
     </section>
 
-    <!-- СЕКЦИЯ 7: ДРЕСС-КОД С ПЕРЕКЛЮЧАТЕЛЕМ -->
+    <!-- СЕКЦИЯ 7: ДРЕСС-КОД С ПЕРЕКЛЮЧАТЕЛЕМ И СЛАЙДЕРАМИ -->
     <section class="reveal" style="background: #fcfcfc;">
         <h2 class="serif-title">Дресс-код</h2>
         <p class="serif-subtitle">dress-code</p>
@@ -974,23 +984,37 @@
             <button class="tab-btn" onclick="openTab(event, 'for-him')">ДЛЯ НЕГО</button>
         </div>
 
-        <!-- Контент: Для неё -->
+        <!-- Слайдер: Для неё -->
         <div id="for-her" class="tabs-content active">
-            <div>
-                <div class="dress-photo" style="background-image: url('платье1.jpg');"></div>
-            </div>
-            <div>
-                <div class="dress-photo" style="background-image: url('платье2.jpg');"></div>
+            <div class="slider-wrapper">
+                <div class="slider-track" id="sliderHer">
+                    <div class="slider-slide"><div class="dress-photo" style="background-image: url('платье1.jpg');"></div></div>
+                    <div class="slider-slide"><div class="dress-photo" style="background-image: url('платье2.jpg');"></div></div>
+                    <div class="slider-slide"><div class="dress-photo" style="background-image: url('платье3.jpg');"></div></div>
+                    <div class="slider-slide"><div class="dress-photo" style="background-image: url('платье4.jpg');"></div></div>
+                </div>
+                <div class="slide-controls">
+                    <button class="slide-arrow" onclick="moveSlide('her', -1)">← Назад</button>
+                    <span class="slide-counter"><span id="herCurrent">1</span>/4</span>
+                    <button class="slide-arrow" onclick="moveSlide('her', 1)">Далее →</button>
+                </div>
             </div>
         </div>
 
-        <!-- Контент: Для него -->
+        <!-- Слайдер: Для него -->
         <div id="for-him" class="tabs-content">
-            <div>
-                <div class="dress-photo" style="background-image: url('костюм1.jpg');"></div>
-            </div>
-            <div>
-                <div class="dress-photo" style="background-image: url('костюм3.jpg');"></div>
+            <div class="slider-wrapper">
+                <div class="slider-track" id="sliderHim">
+                    <div class="slider-slide"><div class="dress-photo" style="background-image: url('костюм1.jpg');"></div></div>
+                    <div class="slider-slide"><div class="dress-photo" style="background-image: url('костюм2.jpg');"></div></div>
+                    <div class="slider-slide"><div class="dress-photo" style="background-image: url('костюм3.jpg');"></div></div>
+                    <div class="slider-slide"><div class="dress-photo" style="background-image: url('костюм4.jpg');"></div></div>
+                </div>
+                <div class="slide-controls">
+                    <button class="slide-arrow" onclick="moveSlide('him', -1)">← Назад</button>
+                    <span class="slide-counter"><span id="himCurrent">1</span>/4</span>
+                    <button class="slide-arrow" onclick="moveSlide('him', 1)">Далее →</button>
+                </div>
             </div>
         </div>
     </section>
@@ -1045,8 +1069,8 @@
                     <option value="red_wine">Красное вино</option>
                     <option value="white_wine">Белое вино</option>
                     <option value="champagne">Шампанское</option>
+                    <option value="vodka">Водка</option>
                     <option value="whiskey">Виски</option>
-                    <option value="cognac">Коньяк</option>
                     <option value="soft">Безалкогольное</option>
                     <option value="other">Другой вариант</option>
                 </select>
@@ -1130,6 +1154,22 @@
 
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
+        }
+
+        // Слайдер
+        var slides = { her: 0, him: 0 };
+
+        function moveSlide(gender, direction) {
+            var track = document.getElementById('slider' + (gender === 'her' ? 'Her' : 'Him'));
+            var currentEl = document.getElementById(gender + 'Current');
+            var totalSlides = 4;
+
+            slides[gender] += direction;
+            if (slides[gender] < 0) slides[gender] = 0;
+            if (slides[gender] >= totalSlides) slides[gender] = totalSlides - 1;
+
+            track.style.transform = 'translateX(-' + (slides[gender] * 100) + '%)';
+            currentEl.textContent = slides[gender] + 1;
         }
 
         // Таймер
