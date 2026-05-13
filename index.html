@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -1035,14 +1034,18 @@
         </p>
     </section>
 
-    <!-- СЕКЦИЯ 9: АНКЕТА ГОСТЯ -->
+    <!-- СЕКЦИЯ 9: АНКЕТА ГОСТЯ (ОБНОВЛЁННАЯ ФОРМА) -->
     <section class="reveal">
         <h2 class="serif-title">Анкета гостя</h2>
         <p class="serif-subtitle">rsvp</p>
         <p class="form-deadline">Пожалуйста, подтвердите присутствие<br>до 01 июля 2026</p>
         
         <div class="form-container">
-            <form id="rsvpForm" action="https://formspree.io/f/xaqvpajq" method="POST">
+            <!-- ОБНОВЛЁННАЯ ФОРМА - открывается в новой вкладке без ошибок -->
+            <form id="rsvpForm" 
+                  action="https://formspree.io/f/xaqvpajq" 
+                  method="POST" 
+                  target="_blank">
                 
                 <label class="form-label">Ваше имя и фамилия</label>
                 <input type="text" name="guestName" class="form-input" placeholder="Иван Петров" required>
@@ -1228,67 +1231,30 @@
         }
         startCountdown();
 
-        // Аллергия
+        // Аллергия - показываем/скрываем поле
         var allergyRadios = document.querySelectorAll('input[name="allergy"]');
         var allergyDetails = document.getElementById('allergyDetails');
         
-        for (var r = 0; r < allergyRadios.length; r++) {
-            allergyRadios[r].addEventListener('change', function() {
-                if (this.value === 'yes') {
+        function toggleAllergyField() {
+            if (allergyDetails) {
+                var selectedAllergy = document.querySelector('input[name="allergy"]:checked');
+                if (selectedAllergy && selectedAllergy.value === 'yes') {
                     allergyDetails.style.display = 'block';
                 } else {
                     allergyDetails.style.display = 'none';
                 }
-            });
+            }
         }
-
-        // Отправка формы (множественный выбор напитков)
-        var rsvpForm = document.getElementById('rsvpForm');
-        if (rsvpForm) {
-            rsvpForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                var formData = new FormData(rsvpForm);
-                
-                // Собираем все отмеченные напитки
-                var selectedDrinks = [];
-                var drinkCheckboxes = document.querySelectorAll('input[name="drinks"]:checked');
-                for (var d = 0; d < drinkCheckboxes.length; d++) {
-                    selectedDrinks.push(drinkCheckboxes[d].value);
-                }
-                
-                formData.delete('drinks');
-                if (selectedDrinks.length > 0) {
-                    formData.append('drinks', selectedDrinks.join(', '));
-                } else {
-                    formData.append('drinks', 'Не выбрано');
-                }
-                
-                fetch(rsvpForm.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(function(response) {
-                    if (response.ok) {
-                        alert('Спасибо! Ваш ответ успешно отправлен. Ждём вас!');
-                        rsvpForm.reset();
-                        allergyDetails.style.display = 'none';
-                        var allCheckboxes = document.querySelectorAll('input[name="drinks"]');
-                        for (var c = 0; c < allCheckboxes.length; c++) {
-                            allCheckboxes[c].checked = false;
-                        }
-                    } else {
-                        alert('Произошла ошибка. Пожалуйста, попробуйте ещё раз.');
-                    }
-                })
-                .catch(function(error) {
-                    alert('Ошибка соединения. Проверьте интернет.');
-                });
-            });
+        
+        for (var r = 0; r < allergyRadios.length; r++) {
+            allergyRadios[r].addEventListener('change', toggleAllergyField);
         }
+        
+        // Убираем старый обработчик fetch и не добавляем новый
+        // Форма теперь работает через стандартную отправку в новом окне
+        // Нет никаких ошибок соединения
+        
+        console.log('Страница загружена. Форма отправляется в новой вкладке через Formspree');
     </script>
 </body>
 </html>
